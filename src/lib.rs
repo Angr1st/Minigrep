@@ -3,7 +3,14 @@ use std::io::prelude::*;
 use std::error::Error;
 
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    vec![]
+    let mut result = Vec::new();
+    
+    for line in contents.lines()  {
+        if line.contains(query) {
+result.push(line);
+        }
+    }
+    result
 }
 
 pub fn run (config: Config) -> Result<(), Box<Error>> {
@@ -43,9 +50,9 @@ mod test {
     fn one_result() {
         let query = "duct";
         let contents = "\
-        Rust>
-        safe, fast, productive.
-        Pick three.";
+Rust
+safe, fast, productive.
+Pick three.";
 
         assert_eq!(
             vec!["safe, fast, productive."],
