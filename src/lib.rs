@@ -49,7 +49,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn one_result() {
+    fn case_sensitive() {
         let query = "duct";
         let contents = "\
 Rust
@@ -59,6 +59,20 @@ Pick three.";
         assert_eq!(
             vec!["safe, fast, productive."],
             search(query,contents)
+             );
+    }
+
+    #[test]
+    fn case_insensitve() {
+        let query = "rUsT";
+        let contents = "\
+Rust:
+safe, fast, productive.
+Pick three.
+Trust me.";
+        assert_eq!(
+            vec!["Rust:","Trust me."],
+            search_case_insensitive(query,contents)
              );
     }
 }
